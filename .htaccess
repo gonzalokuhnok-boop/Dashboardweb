@@ -1,0 +1,19 @@
+# ============================================================
+#  .htaccess para Trading Journal Pro en InfinityFree / cPanel
+# ============================================================
+
+# Pasar el header Authorization al PHP (algunos hostings lo bloquean)
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
+# Bloquear acceso directo a config.php desde el navegador
+<Files "config.php">
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Activar compresión gzip (mejora velocidad de carga)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>
